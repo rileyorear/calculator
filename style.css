@@ -7,6 +7,7 @@ body {
   justify-content: center;
   gap: 48px;
   font-family: monospace;
+  user-select: none;
 }
 
 .calculator {
@@ -26,6 +27,9 @@ body {
   background-color: rgb(47, 47, 47);
   margin-top: 25px;
   border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .buttons {
@@ -36,7 +40,7 @@ body {
   width: 350px;
 }
 
-.button {
+.button, .numberButton, .operatorButton{
   width: 75px;
   height: 75px;
   border-radius: 10px;
@@ -48,10 +52,36 @@ body {
   font-size: 32px;
 }
 
+.button:active, .numberButton:active {
+  background-color: rgb(174, 174, 174);
+}
+
+.result {
+  color: white;
+  font-size: 40px;
+  padding: 0px 8px;
+  margin: 0px;
+  display: flex;
+  justify-content: right;
+  max-width: 350px;
+}
+
 #equals {
   width: 160px;
 }
 
-#equals, #multiply, #subtract, #addition, #division, #modulos {
+.operatorButton {
   background-color: orange;
+}
+
+.operatorButton:active {
+  background-color: rgb(255, 202, 103);
+}
+
+#AC, #C {
+  background-color: rgb(255, 47, 47);
+}
+
+#AC:active, #C:active {
+background-color: rgb(255, 108, 108);
 }
