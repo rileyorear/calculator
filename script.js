@@ -18,8 +18,8 @@ const decimalButton = document.querySelector('#equals');
 const resultScreen = document.querySelector('.result')
 
 let currentNumber = [];
-
-
+let firstNumber = "";
+let secondNumber = "";
 
 const numberButtons = document.querySelectorAll('.numberButton');
 
@@ -34,62 +34,33 @@ numberButtons.forEach((numberButton) => {
   });
 });
 
-// CButton.addEventListener('mouseup', () => {
-//   currentNumber = [];
-//   resultScreen.textContent = "0";
-// });
+ACButton.addEventListener('mouseup', () => {
+  currentNumber = [];
+  firstNumber = "";
+  secondNumber = "";
+  resultScreen.textContent = 0;
+});
 
-// sevenButton.addEventListener('mouseup', () => {
-//   currentNumber.push(7);
-//   numberButtonProcessing();
-// });
+CButton.addEventListener('mouseup', () => {
+  currentNumber = [];
+  resultScreen.textContent = 0;
+});
 
-// eightButton.addEventListener('mouseup', () => {
-//   currentNumber.push(8);
-//   numberButtonProcessing();
-// });
-
-// nineButton.addEventListener('mouseup', () => {
-//   currentNumber.push(9);
-//   numberButtonProcessing();
-// });
-
-// fourButton.addEventListener('mouseup', () => {
-//   currentNumber.push(4);
-//   numberButtonProcessing();
-// });
-
-// fiveButton.addEventListener('mouseup', () => {
-//   currentNumber.push(5);
-//   numberButtonProcessing();
-// });
-
-// sixButton.addEventListener('mouseup', () => {
-//   currentNumber.push(6);
-//   numberButtonProcessing();
-// });
-
-// oneButton.addEventListener('mouseup', () => {
-//   currentNumber.push(1);
-//   numberButtonProcessing();
-// });
-
-// twoButton.addEventListener('mouseup', () => {
-//   currentNumber.push(2);
-//   numberButtonProcessing();
-// });
-
-// threeButton.addEventListener('mouseup', () => {
-//   currentNumber.push(3);
-//   numberButtonProcessing();
-// });
-
-// zeroButton.addEventListener('mouseup', () => {
-//   currentNumber.push(0);
-//   numberButtonProcessing();
-// });
-
-
+const operators = document.querySelectorAll('.operatorButton');
+let selectedOperator;
+operators.forEach((operator) => {
+  operator.addEventListener('mouseup', () => {
+    selectedOperator = operator;
+    if (firstNumber == "")
+      firstNumber = currentNumber.join("");
+      else if (secondNumber != "") {
+        firstNumber = secondNumber;
+        secondNumber = currentNumber.join("");
+      }
+    else if (firstNumber != "")
+      secondNumber = currentNumber.join("");
+  });
+});
 
 function add (a, b) {
   return a + b;
@@ -106,16 +77,3 @@ function multiply (a, b) {
 function division (a, b) {
   return a / b;
 }
-
-let firstNumber = [];
-let secondNumber = [];
-
-const operators = document.querySelectorAll('.operatorButton');
-let selectedOperator;
-operators.forEach((operator) => {
-  operator.addEventListener('mouseup', () => {
-    selectedOperator = operator;
-    firstNumber = currentNumber;
-  });
-});
-
