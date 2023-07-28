@@ -15,11 +15,14 @@ const threeButton = document.querySelector('#three');
 const multiplyButton = document.querySelector('#multiply');
 const zeroButton = document.querySelector('#zero');
 const decimalButton = document.querySelector('#equals');
-const resultScreen = document.querySelector('.result')
+const resultScreen = document.querySelector('.result');
+const resultScreenHistory = document.querySelector('.resultHistory');
 
 let currentNumber = [];
 let firstNumber = "";
 let secondNumber = "";
+let numberHistory = [];
+let resultNumber;
 
 const numberButtons = document.querySelectorAll('.numberButton');
 
@@ -38,7 +41,9 @@ ACButton.addEventListener('mouseup', () => {
   currentNumber = [];
   firstNumber = "";
   secondNumber = "";
+  numberHistory = [];
   resultScreen.textContent = 0;
+  resultScreenHistory.textContent = "";
 });
 
 CButton.addEventListener('mouseup', () => {
@@ -50,30 +55,52 @@ const operators = document.querySelectorAll('.operatorButton');
 let selectedOperator;
 operators.forEach((operator) => {
   operator.addEventListener('mouseup', () => {
-    selectedOperator = operator;
-    if (firstNumber == "")
+    selectedOperator = operator.textContent;
+    numberHistory.push(currentNumber.join(""));
+    if (firstNumber == "") {
       firstNumber = currentNumber.join("");
-      else if (secondNumber != "") {
-        firstNumber = secondNumber;
-        secondNumber = currentNumber.join("");
-      }
-    else if (firstNumber != "")
+    }
+    else if (secondNumber != "") {
+      firstNumber = secondNumber;
+      secondNumber = currentNumber.join(""); 
+    }
+    else if (firstNumber != "") {
       secondNumber = currentNumber.join("");
+    }
+    resultScreenHistory.textContent =
+    resultScreenHistory.textContent + ` ${currentNumber.join("")} ${selectedOperator}`;
+    operate();
+    resultScreen.textContent = resultNumber;
+    currentNumber = [];
   });
 });
 
 function add (a, b) {
-  return a + b;
+  if (b === undefined) {
+    resultNumber = currentNumber.join("");
+  }
+  else
+    resultNumber = a + b;
 }
 
-function subtract (a, b) {
-  return a - b;
-}
-
-function multiply (a, b) {
-  return a * b;
-}
-
-function division (a, b) {
-  return a / b;
+function operate () {
+  if (selectedOperator === "+") {
+    add(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
+  }
+  else if (selectedOperator === "-") {
+    if (secondNumber == "")
+      resultNumber = +firstNumber;
+    else
+      resultNumber = (+(numberHistory[numberHistory.length-2]) - +(numberHistory[numberHistory.length-1]));
+    resultScreen.textContent = resultNumber;  
+  }
+  else if (selectedOperator === "*") {
+    
+  }
+  else if (selectedOperator === "/") {
+    
+  }
+  else if (selectedOperator === "=") {
+    
+  }
 }
