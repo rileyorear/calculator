@@ -22,7 +22,7 @@ let currentNumber = [];
 let firstNumber = "";
 let secondNumber = "";
 let numberHistory = [];
-let resultNumber;
+let resultNumber = 0;
 
 const numberButtons = document.querySelectorAll('.numberButton');
 
@@ -76,11 +76,11 @@ operators.forEach((operator) => {
 });
 
 function add (a, b) {
-  if (b === undefined) {
+  if (numberHistory.length === 1) {
     resultNumber = currentNumber.join("");
   }
   else
-    resultNumber = a + b;
+    resultNumber = (a + b);
 }
 
 function operate () {
@@ -88,11 +88,7 @@ function operate () {
     add(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
   }
   else if (selectedOperator === "-") {
-    if (secondNumber == "")
-      resultNumber = +firstNumber;
-    else
-      resultNumber = (+(numberHistory[numberHistory.length-2]) - +(numberHistory[numberHistory.length-1]));
-    resultScreen.textContent = resultNumber;  
+    
   }
   else if (selectedOperator === "*") {
     
@@ -103,4 +99,6 @@ function operate () {
   else if (selectedOperator === "=") {
     
   }
+  // else
+  //   resultNumber = currentNumber.join("");
 }
