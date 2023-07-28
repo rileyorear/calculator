@@ -19,8 +19,6 @@ const resultScreen = document.querySelector('.result');
 const resultScreenHistory = document.querySelector('.resultHistory');
 
 let currentNumber = [];
-
-
 let numberHistory = [];
 let resultNumber = 0;
 
@@ -34,14 +32,17 @@ numberButtons.forEach((numberButton) => {
       resultScreen.textContent = currentNumber.join("");
     }
     numberButtonProcessing();
+    if (resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-1) === "=") {
+      resultScreenHistory.textContent = "";
+      resultNumber = +currentNumber.join("");
+    }
   });
 });
 
 ACButton.addEventListener('mouseup', () => {
   currentNumber = [];
-
-  
   numberHistory = [];
+  resultNumber = 0;
   resultScreen.textContent = 0;
   resultScreenHistory.textContent = "";
 });
@@ -57,14 +58,38 @@ operators.forEach((operator) => {
   operator.addEventListener('mouseup', () => {
     selectedOperator = operator.textContent;
     numberHistory.push(currentNumber.join(""));
-    
-    resultScreenHistory.textContent =
-    resultScreenHistory.textContent + ` ${currentNumber.join("")} ${selectedOperator}`;
+    if (numberHistory.length === 1)
+    resultNumber = currentNumber.join("");
     operate();
-    resultScreen.textContent = resultNumber;
+    if (resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-1) === "=") {
+      resultScreenHistory.textContent = ` ${resultNumber} ${selectedOperator}`;
+    }
+    else {
+      resultScreenHistory.textContent =
+      resultScreenHistory.textContent + ` ${currentNumber.join("")} ${selectedOperator}`;
+      resultScreen.textContent = resultNumber;
+    }
     currentNumber = [];
   });
 });
+
+function operate () {
+  if (resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-1) === "+") {
+    add(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
+  }
+  else if (resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-1) === "-") {
+    subtract(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
+  }
+  else if (resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-1) === "*") {
+    multiply(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
+  }
+  else if (resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-1) === "/") {
+    division(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
+  }
+  else if (selectedOperator === "=") {
+    
+  }
+}
 
 function add (a, b) {
   if (numberHistory.length === 1) 
@@ -100,22 +125,4 @@ function division (a, b) {
     resultNumber = a / b;
   else
     resultNumber /= b;
-}
-
-function operate () {
-  if (selectedOperator === "+") {
-    add(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
-  }
-  else if (selectedOperator === "-") {
-    subtract(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
-  }
-  else if (selectedOperator === "*") {
-    multiply(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
-  }
-  else if (selectedOperator === "/") {
-    division(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
-  }
-  else if (selectedOperator === "=") {
-    
-  }
 }
