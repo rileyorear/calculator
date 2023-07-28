@@ -19,8 +19,8 @@ const resultScreen = document.querySelector('.result');
 const resultScreenHistory = document.querySelector('.resultHistory');
 
 let currentNumber = [];
-let firstNumber = "";
-let secondNumber = "";
+
+
 let numberHistory = [];
 let resultNumber = 0;
 
@@ -39,8 +39,8 @@ numberButtons.forEach((numberButton) => {
 
 ACButton.addEventListener('mouseup', () => {
   currentNumber = [];
-  firstNumber = "";
-  secondNumber = "";
+
+  
   numberHistory = [];
   resultScreen.textContent = 0;
   resultScreenHistory.textContent = "";
@@ -57,16 +57,7 @@ operators.forEach((operator) => {
   operator.addEventListener('mouseup', () => {
     selectedOperator = operator.textContent;
     numberHistory.push(currentNumber.join(""));
-    if (firstNumber == "") {
-      firstNumber = currentNumber.join("");
-    }
-    else if (secondNumber != "") {
-      firstNumber = secondNumber;
-      secondNumber = currentNumber.join(""); 
-    }
-    else if (firstNumber != "") {
-      secondNumber = currentNumber.join("");
-    }
+    
     resultScreenHistory.textContent =
     resultScreenHistory.textContent + ` ${currentNumber.join("")} ${selectedOperator}`;
     operate();
@@ -84,18 +75,45 @@ function add (a, b) {
     resultNumber += b;
 }
 
+function subtract (a, b) {
+  if (numberHistory.length === 1) 
+    resultNumber = currentNumber.join("");
+  else if (numberHistory.length === 2)
+    resultNumber = a - b;
+  else
+    resultNumber -= b;
+}
+
+function multiply (a, b) {
+  if (numberHistory.length === 1) 
+    resultNumber = currentNumber.join("");
+  else if (numberHistory.length === 2)
+    resultNumber = a * b;
+  else
+    resultNumber *= b;
+}
+
+function division (a, b) {
+  if (numberHistory.length === 1) 
+    resultNumber = currentNumber.join("");
+  else if (numberHistory.length === 2)
+    resultNumber = a / b;
+  else
+    resultNumber /= b;
+}
+
 function operate () {
   if (selectedOperator === "+") {
     add(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
   }
   else if (selectedOperator === "-") {
-    
+    subtract(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
   }
   else if (selectedOperator === "*") {
-    
+    multiply(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
   }
   else if (selectedOperator === "/") {
-    
+    division(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
   }
   else if (selectedOperator === "=") {
     
