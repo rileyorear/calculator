@@ -76,11 +76,12 @@ operators.forEach((operator) => {
 });
 
 function add (a, b) {
-  if (numberHistory.length === 1) {
+  if (numberHistory.length === 1) 
     resultNumber = currentNumber.join("");
-  }
+  else if (numberHistory.length === 2)
+    resultNumber = a + b;
   else
-    resultNumber = (a + b);
+    resultNumber += b;
 }
 
 function operate () {
@@ -99,6 +100,4 @@ function operate () {
   else if (selectedOperator === "=") {
     
   }
-  // else
-  //   resultNumber = currentNumber.join("");
 }
