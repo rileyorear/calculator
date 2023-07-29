@@ -62,7 +62,7 @@ operators.forEach((operator) => {
     if (numberHistory[numberHistory.length-1] === "")
       numberHistory.pop();
     if (numberHistory.length === 1)
-      resultNumber = currentNumber.join("");
+    resultNumber = currentNumber.join("");
     operate();
     if (resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-1) === "=") {
       resultScreenHistory.textContent = ` ${resultNumber} ${selectedOperator}`;

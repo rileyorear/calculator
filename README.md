@@ -1,3 +1,3 @@
 # calculator
 
-This is a javascript calculator with a UI.
+This is my first go at a javascript calculator with a UI. Kinda buggy.
