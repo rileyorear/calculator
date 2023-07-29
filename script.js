@@ -20,6 +20,7 @@ const resultScreenHistory = document.querySelector('.resultHistory');
 
 let currentNumber = [];
 let numberHistory = [];
+let resultNumberHistory = [];
 let resultNumber = 0;
 
 const numberButtons = document.querySelectorAll('.numberButton');
@@ -67,9 +68,14 @@ operators.forEach((operator) => {
       resultScreenHistory.textContent = ` ${resultNumber} ${selectedOperator}`;
     }
     else {
-      resultScreenHistory.textContent =
-      resultScreenHistory.textContent + ` ${currentNumber.join("")} ${selectedOperator}`;
-      resultScreen.textContent = resultNumber;
+        resultScreenHistory.textContent =
+        resultScreenHistory.textContent + ` ${currentNumber.join("")} ${selectedOperator}`;
+        resultScreen.textContent = resultNumber;
+        resultNumberHistory.push(resultNumber);
+        if (resultScreen.textContent === "Infinity") {
+          resultScreen.textContent = "Not real";
+          resultScreenHistory.textContent = "Not real";
+        }
     }
     currentNumber = [];
   });
@@ -88,6 +94,10 @@ function operate () {
   else if (resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-1) === "/") {
     division(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
   }
+  if (resultNumber.toString().includes("."))
+    resultNumber = +resultNumber.toFixed(5);
+  if (resultNumber.toString().length > 15)
+    resultNumber = resultNumberHistory[resultNumberHistory.length-1];
 }
 
 function add (a, b) {
