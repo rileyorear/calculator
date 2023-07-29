@@ -20,6 +20,7 @@ const resultScreenHistory = document.querySelector('.resultHistory');
 
 let currentNumber = [];
 let numberHistory = [];
+let resultHistory = [];
 let resultNumber = 0;
 
 const numberButtons = document.querySelectorAll('.numberButton');
@@ -58,9 +59,18 @@ operators.forEach((operator) => {
   operator.addEventListener('mouseup', () => {
     selectedOperator = operator.textContent;
     numberHistory.push(currentNumber.join(""));
+    if (numberHistory[numberHistory.length-1] === "")
+      numberHistory.pop();
     if (numberHistory.length === 1)
-    resultNumber = currentNumber.join("");
+      resultNumber = currentNumber.join("");
+    
     operate();
+    // if (resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-1) &&
+    //     resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-4) ===
+    //     "+")
+          //resultScreenHistory.textContent = resultScreenHistory.textContent.slice(0, -1);
+          //resultScreenHistory.textContent = `${resultScreenHistory.textContent} ${selectedOperator}` 
+
     if (resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-1) === "=") {
       resultScreenHistory.textContent = ` ${resultNumber} ${selectedOperator}`;
     }
@@ -85,9 +95,6 @@ function operate () {
   }
   else if (resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-1) === "/") {
     division(+(numberHistory[numberHistory.length-2]), +(numberHistory[numberHistory.length-1]));
-  }
-  else if (selectedOperator === "=") {
-    
   }
 }
 
