@@ -90,3 +90,9 @@ body {
 #AC:active, #C:active {
 background-color: rgb(255, 108, 108);
 }
+
+a {
+  color: black;
+  text-decoration: none;
+}
+

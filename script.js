@@ -20,7 +20,6 @@ const resultScreenHistory = document.querySelector('.resultHistory');
 
 let currentNumber = [];
 let numberHistory = [];
-let resultHistory = [];
 let resultNumber = 0;
 
 const numberButtons = document.querySelectorAll('.numberButton');
@@ -63,14 +62,7 @@ operators.forEach((operator) => {
       numberHistory.pop();
     if (numberHistory.length === 1)
       resultNumber = currentNumber.join("");
-    
     operate();
-    // if (resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-1) &&
-    //     resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-4) ===
-    //     "+")
-          //resultScreenHistory.textContent = resultScreenHistory.textContent.slice(0, -1);
-          //resultScreenHistory.textContent = `${resultScreenHistory.textContent} ${selectedOperator}` 
-
     if (resultScreenHistory.textContent.charAt(resultScreenHistory.textContent.length-1) === "=") {
       resultScreenHistory.textContent = ` ${resultNumber} ${selectedOperator}`;
     }
